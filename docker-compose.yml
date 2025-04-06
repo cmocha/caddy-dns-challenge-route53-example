@@ -1,0 +1,18 @@
+services:
+  caddy:
+    container_name: caddy_build_dns_challenge_route53_example
+    build: .
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./site:/srv
+      - caddy_build_dns_challenge_route53_example_data:/data
+      - caddy_build_dns_challenge_route53_example_config:/config
+
+volumes:
+  caddy_build_dns_challenge_route53_example_data:
+  caddy_build_dns_challenge_route53_example_config:

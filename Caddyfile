@@ -1,0 +1,41 @@
+{
+  email your@email.com
+  log debug
+}
+
+one.example.com, two.example.com, three.example.com {
+
+  tls {
+    dns route53 {
+      max_retries 1
+      access_key_id "accesskeyidhere"
+      secret_access_key "secretaccesskeyhere"
+      region "us-east-2"
+      max_wait_dur 60
+      wait_for_propagation true
+      hosted_zone_id hostedzoneidhere
+    }
+    resolvers 1.1.1.1
+    dns_challenge_override_domain route53.example.com
+  }
+
+   @a host one.example.com
+   handle @a {
+    root * /srv
+    file_server
+   }
+
+   @b host two.example.com
+   handle @b {
+    respond "Hello from two.example.com"
+   }
+
+   @c host three.example.com
+   handle @c {
+    respond "Hello from three.example.com"
+   }
+
+   handle { 
+   abort 
+   }
+}
